@@ -4,6 +4,7 @@ export const WebcamContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content:center;
   padding: 10px;
   margin-top: 10px;
   width: 100%;
@@ -15,7 +16,7 @@ export const Img = styled.img`
 `;
 
 export const WebcamButton = styled.button`
-  width: 75%;
+  width: 12em;
   padding: 0.2em;
   border: none;
   font-size: 1.2em;

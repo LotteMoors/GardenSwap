@@ -20,7 +20,7 @@ const Upload = ({ img, setImg, Identify }) => {
     <FileDiv>
       <div
         className="custom-file"
-        style={{ display: "flex", alignContent: "center", maxWidth:'35em' ,minWidth:"20em", margin:'2em' }}
+        style={{ display: "flex", alignContent: "center", maxWidth:'35em' ,minWidth:"20em", margin:'1em' }}
       >
         <input
           type="file"
