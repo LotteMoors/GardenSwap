@@ -1,13 +1,55 @@
 import React, { useState } from "react";
-import WebCam from "../../components/Webcam/Webcam.js";
-import Upload from "../../components/Upload/Upload.js";
+import axios from "axios";
+import WebCam from "../../components/Webcam/Webcam";
+import Upload from "../../components/Upload/Upload";
+import Identifications from "../../components/Identifications/Identifications";
 import CameraIcon from "../../components/images/camera.png";
 import UploadIcon from "../../components/images/upload.png";
-import { Full, TitleContainer, ButtonContainer, ImageContainer, Button, Img } from "./styles";
+import {
+  Full,
+  IDContainer,
+  TitleContainer,
+  Error,
+  UploadContainer,
+  WebcamContainer,
+  ImageContainer,
+  Button,
+  Img,
+} from "./styles";
 
 const Identify = () => {
   const [action, setAction] = useState("");
   const [img, setImg] = useState("");
+  const [response, setResponse] = useState("");
+
+  const URL = "https://api.plant.id/v2/identify";
+
+  const data = {
+    api_key: `${process.env.REACT_APP_PLANT_ID_TOKEN}`,
+    images: [img],
+    modifiers: ["crops_fast", "similar_images"],
+    plant_language: "en",
+    plant_details: [
+      "common_names",
+      "url",
+      "name_authority",
+      "wiki_description",
+      "taxonomy",
+      "synonyms",
+    ],
+  };
+
+  const Identify = () => {
+    axios
+      .post(URL, data)
+      .then((res) => {
+        console.log("Success:", res.data);
+        setResponse(res.data);
+      })
+      .catch((error) => {
+        console.error("Error: ", error);
+      });
+  };
 
   const goBack = () => {
     setAction("");
@@ -15,31 +57,57 @@ const Identify = () => {
   };
 
   return (
-    <Full>
-      <TitleContainer>
-        <h1>Garden Swap</h1>
-        <h2>Identification Tool</h2>
-      </TitleContainer>
+    <>
+      {!response || response.is_plant === false ? (
+        <Full>
+          <TitleContainer>
+            <h1>Garden Swap</h1>
+            <h3>Identification Tool</h3>
+          </TitleContainer>
+          {response.is_plant === false ? <Error>No plant detected!</Error> : null}
 
-      {action === "" ? (
-        <ImageContainer>
-          <Img src={UploadIcon} alt="" onClick={() => setAction("Upload")} />
+          {action === "" ? (
+            <ImageContainer>
+              <Img
+                src={UploadIcon}
+                alt=""
+                onClick={() => setAction("Upload")}
+              />
 
-          <Img src={CameraIcon} alt="" onClick={() => setAction("Webcam")} />
-        </ImageContainer>
-      ) : action === "Upload" ? (
-        <ButtonContainer>
-          <Button onClick={goBack}>Go Back</Button>
-          <Upload img={img} setImg={setImg} />
-        </ButtonContainer>
+              <Img
+                src={CameraIcon}
+                alt=""
+                onClick={() => setAction("Webcam")}
+              />
+            </ImageContainer>
+          ) : action === "Upload" ? (
+            <UploadContainer>
+              <Button onClick={goBack}>⬅ Go Back</Button>
+              <Upload
+                response={response}
+                Identify={Identify}
+                img={img}
+                setImg={setImg}
+              />
+            </UploadContainer>
+          ) : (
+            <WebcamContainer >
+              <Button onClick={goBack}>⬅ Go Back</Button>
+              <WebCam
+                response={response}
+                Identify={Identify}
+                img={img}
+                setImg={setImg}
+              />
+            </WebcamContainer>
+          )}
+        </Full>
       ) : (
-        <ButtonContainer>
-          <Button onClick={goBack}>Go Back</Button>
-          <WebCam img={img} setImg={setImg} />
-        </ButtonContainer>
+        <IDContainer>
+          <Identifications img={img} response={response} />
+        </IDContainer>
       )}
-      {console.log(img)}
-    </Full>
+    </>
   );
 };
 
