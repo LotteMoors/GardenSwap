@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import Slider from "../Slider/Slider";
-import Info from "../images/information.png";
+import InfoButton from "../Buttons/InfoButton";
+import ConfirmButton from "../Buttons/ConfirmButton";
+import Information from "../Information/Information";
 import {
   Container,
   Title,
@@ -12,14 +14,13 @@ import {
   Img,
   Name,
   CommonName,
+  ProgressContainer,
   Progress,
-  Icon,
-  Button,
 } from "./styles";
 
 const Identifications = ({ response, img }) => {
-//   const [info, setInfo] = useState(false);
-  
+  const [info, setInfo] = useState("");
+
   const Capitalize = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
@@ -31,41 +32,35 @@ const Identifications = ({ response, img }) => {
       <CardContainer>
         {response.suggestions.map((res, index) => (
           <Card key={index}>
-            <CardBody>
-              <Icon src={Info} alt="" />
-              <Button >Confirm</Button>
-              <Name>{res.plant_name}</Name>
-             
-              {/* {res.plant_details.taxonomy !== null ? (
-                <p> {res.plant_details.taxonomy.family} </p>
-              ) : null} */}
-              <div
-                style={{
-                  width: "20em",
-                  height:'15em',
-                  alignItems: "center",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <Progress>
-                  <CircularProgressbar
-                    value={Math.round(res.probability * 100)}
-                    text={`${Math.round(res.probability * 100)}%`}
-                  />
-                </Progress>
-              </div>
-              {res.plant_details.common_names !== null ? (
-                <CommonName>
-                  {Capitalize(`${res.plant_details.common_names[0]}`)}
-                </CommonName>
-              ) : null}
-            </CardBody>
-            <div style={{ maxWidth: "25em", maxHeight: "25em" }}>
-              <Slider res={res.similar_images} />
-            </div>
-
-            {/* <img src={res.similar_images[0].url} alt="" /> */}
+            {info !== index ? (
+              <>
+                <CardBody>
+                  <ConfirmButton res={res} />
+                  <InfoButton index={index} setInfo={setInfo} />
+                  <div style={{ height: "55%", justifyContent:'space-around', display:'flex', flexFlow:'column' }}>
+                    <Name>{res.plant_name}</Name>
+                    {res.plant_details.common_names !== null ? (
+                      <CommonName>
+                        {Capitalize(`${res.plant_details.common_names[0]}`)}
+                      </CommonName>
+                    ) : null}
+                  </div>
+                  <ProgressContainer>
+                    <Progress>
+                      <CircularProgressbar
+                        value={Math.round(res.probability * 100)}
+                        text={`${Math.round(res.probability * 100)}%`}
+                      />
+                    </Progress>
+                  </ProgressContainer>
+                </CardBody>
+                <div style={{ maxWidth: "20em", maxHeight: "25em" }}>
+                  <Slider res={res.similar_images} />
+                </div>
+              </>
+            ) : (
+              <Information setInfo={setInfo} res={res} />
+            )}           
           </Card>
         ))}
       </CardContainer>
