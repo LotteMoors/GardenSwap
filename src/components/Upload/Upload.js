@@ -1,27 +1,11 @@
-import React from "react";
-import axios from "axios";
-import { Img, Button } from "./styles";
+import React, { useState } from "react";
+import { FileDiv, Img, Button } from "./styles";
 
-const Upload = ({ img, setImg }) => {
-  
-  const URL = "https://api.plant.id/v2/identify";
-  
-  const data = {
-      api_key: `${process.env.REACT_APP_PLANT_ID_TOKEN}`,
-      images: [img],
-      modifiers: ["crops_fast", "similar_images"],
-      plant_language: "en",
-      plant_details: [
-        "common_names",
-        "url",
-        "name_authority",
-        "wiki_description",
-        "taxonomy",
-        "synonyms",
-      ],
-    };
-  
-  const onChangePicture = (e) => { 
+const Upload = ({ img, setImg, Identify }) => {
+  const [fileName, setFileName] = useState("");
+
+  const onChangePicture = (e) => {
+    setFileName(e.target.files[0].name);
     if (e.target.files[0]) {
       console.log("picture: ", e.target.files);
       const reader = new FileReader();
@@ -32,27 +16,31 @@ const Upload = ({ img, setImg }) => {
     }
   };
 
-  const Identify = () => {  
-    axios
-      .post(URL, data)
-      .then((res) => {
-        console.log("Success:", res.data);
-      })
-      .catch((error) => {
-        console.error("Error: ", error);
-      });
-  };
-
   return (
-    <>
-      <input id="plantPic" type="file" onChange={onChangePicture} />
-      
-      {!img ? null : <Img src={img} alt="" />}
-      
-      <Button onClick={Identify}>Identify</Button>
+    <FileDiv>
+      <div
+        className="custom-file"
+        style={{ display: "flex", alignContent: "center", maxWidth:'35em' ,minWidth:"20em", margin:'2em' }}
+      >
+        <input
+          type="file"
+          className="custom-file-input"
+          id="customFileLangHTML"
+          onChange={onChangePicture}
+        />
+        <label
+          className="custom-file-label"
+          htmlFor="customFileLangHTML"
+          data-browse="Choose file"
+        >
+          {fileName}
+        </label>
+      </div>
 
-      
-    </>
+      {!img ? null : <Img src={img} alt="" />}
+
+      <Button onClick={Identify}>Identify ❃</Button>
+    </FileDiv>
   );
 };
 
