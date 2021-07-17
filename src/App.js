@@ -1,21 +1,9 @@
-import React from 'react';
-import './App.css'
-import { BrowserRouter as Router, Route , Switch} from "react-router-dom";
+import React from "react";
+import "./App.css";
+import Identify from "./views/Identify/Identify";
 
-import Identify from './views/Identify/Identify'
-
-
-function App(){ 
- 
-  return (
-     <>     
-        <Router>
-          <Switch>
-          <Route path="/" exact component={Identify} />         
-          </Switch>
-        </Router>
-    </>  
-  );
+function App() {
+  return <Identify />;
 }
 
 export default App;
