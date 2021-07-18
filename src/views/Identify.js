@@ -1,20 +1,21 @@
 import React, { useState } from "react";
 import axios from "axios";
-import WebCam from "../components/Webcam/Webcam";
-import Upload from "../components/Upload/Upload";
-import Identifications from "../components/Identifications/Identifications";
+import WebCam from "../components/Webcam";
+import Upload from "../components/Upload";
+import Identifications from "../components/Identifications";
 import CameraIcon from "../components/images/camera.png";
 import UploadIcon from "../components/images/upload.png";
 import {
   Full,
   IDContainer,
   TitleContainer,
+  Container,
+  IconContainer,
+  Img,
   Error,
   UploadContainer,
   WebcamContainer,
-  ImageContainer,
   Button,
-  Img,
 } from "./styles";
 
 const Identify = () => {
@@ -70,19 +71,21 @@ const Identify = () => {
           {error ? <Error>No plant detected!</Error> : null}
 
           {action === "" ? (
-            <ImageContainer>
-              <Img
-                src={UploadIcon}
-                alt=""
-                onClick={() => setAction("Upload")}
-              />
+            <Container>
+              <IconContainer>
+                <Img
+                  src={UploadIcon}
+                  alt=""
+                  onClick={() => setAction("Upload")}
+                />
 
-              <Img
-                src={CameraIcon}
-                alt=""
-                onClick={() => setAction("Webcam")}
-              />
-            </ImageContainer>
+                <Img
+                  src={CameraIcon}
+                  alt=""
+                  onClick={() => setAction("Webcam")}
+                />
+              </IconContainer>
+            </Container>
           ) : action === "Upload" ? (
             <UploadContainer>
               <Button onClick={goBack}>⬅ Go Back</Button>
