@@ -12,7 +12,7 @@ export const FileDiv = styled.div`
 
 export const Img = styled.img`
  height: 20em;
- border:3px solid black;
+ border:2px solid black;
  border-radius:15px;
  width: 20em;
  margin-bottom:1em;
