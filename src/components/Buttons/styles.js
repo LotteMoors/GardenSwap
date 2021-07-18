@@ -13,7 +13,7 @@ export const Button = styled.div`
   left: 0.5em;
   cursor: pointer;
   &:hover {
-    background-color: #a1cf83;
+    background-color: #96d474;
   }
 `;
 

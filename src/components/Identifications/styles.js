@@ -14,27 +14,32 @@ export const Title = styled.h1`
   margin-bottom: 0.5em;
   font-size: 3.5em;
   font-weight: semi-bold;
-  color: #f5eedc;
+  color: #f7f6f2;
 `;
 
 export const CardContainer = styled.div`
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
-  width: 85%;
+  width: 80%;
   align-items: flex-start;
+  @media (max-width:768px){
+    width:95%;
+  }
 `;
 
 export const Card = styled.div`
   background-color: white;
   width: 20em;
-  min-height: 30em;
+  min-height: 31.5em;
+  max-height:31.5em;
   position: relative;
-  border-radius: 1em;
+  border-radius: 0.4em 0.4em 0em 0em;
   display: flex;
   flex-flow: column;
   justify-content: center;
   align-items: center;
+  margin: 1em 0 1em 1em;
   margin-bottom: 1em;
   @media (max-width: 400px) {
     &:last-child {
@@ -54,11 +59,14 @@ export const CardBody = styled.div`
 
 export const Img = styled.img`
   height: 20em;
-  border: 3px solid black;
+  border: 2px solid black;
   border-radius: 15px;
   width: 20em;
   margin-bottom: 1em;
   margin-top: 0.5em;
+  @media (max-width:450px){
+    margin-top:4em;
+  }
  
 `;
 
@@ -92,3 +100,26 @@ export const Progress = styled.div`
   display: flex;
 `;
 
+
+export const Button = styled.button`
+width: 7em;
+padding: 0.3em;
+border: none;
+font-size: 1.2em;
+border-radius: 1em;
+background-color: white;
+color: black;
+position: absolute;
+top: 0.8em;
+left:1em;
+&:focus {
+  outline: none;
+}
+@media (max-width: 1024px) {
+  left:1em;
+}
+@media (max-width: 450px) {
+  left:50%;
+  transform: translate(-50%, 0);
+}
+`
