@@ -35,7 +35,7 @@ const Identifications = ({ response, img }) => {
     <Container>
       <Img src={img} alt="" />
       <Button onClick={goBack}>Go back</Button>
-      <Title>Result</Title>
+      <Title>Results</Title>
       <CardContainer>
         {response.suggestions.map((res, index) => (
           <Card key={index}>
