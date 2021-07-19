@@ -104,13 +104,13 @@ export const Button = styled.button`
 `;
 
 export const Img = styled.img`
-  height: 9em;
-  width: 9em;
-  margin: 5em;
+  height: 10em;
+  width: 10em;
+  margin: 3.5em;
   border: 3px solid #006600;
   border-radius: 30px;
   cursor: pointer;
-  padding: 5px;
+  padding: 15px;
   @media (max-width: 450px) {
     margin:0.5em;
   }

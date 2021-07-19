@@ -21,9 +21,9 @@ export const CardContainer = styled.div`
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
-  width: 80%;
-  align-items: flex-start;
-  @media (max-width:768px){
+  align-content:center;
+  width: 90%;
+  @media (max-width:1450px){
     width:95%;
   }
 `;
