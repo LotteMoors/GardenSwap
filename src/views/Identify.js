@@ -100,7 +100,6 @@ const Identify = () => {
             <WebcamContainer>
               <Button onClick={goBack}>⬅ Go Back</Button>
               <WebCam
-                response={response}
                 Identify={Identify}
                 img={img}
                 setImg={setImg}

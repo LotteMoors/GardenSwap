@@ -9,7 +9,7 @@ const videoConstraints = {
   facingMode: "user",
 };
 
-const WebcamCapture = ({ response, img, setImg, Identify }) => {
+const WebcamCapture = ({ img, setImg, Identify }) => {
   const webcamRef = React.useRef(null);
 
   const capture = React.useCallback(() => {
